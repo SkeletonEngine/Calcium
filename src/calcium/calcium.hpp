@@ -1,7 +1,3 @@
 #pragma once
 
-namespace Calcium {
-
-void DoSomething();
-
-}
+#include "calcium/calcium/window.hpp"

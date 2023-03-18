@@ -6,7 +6,7 @@ set(CALCIUM_TESTS_SOURCE_FILES
 )
 source_group("src" FILES ${CALCIUM_TESTS_SOURCE_FILES})
 
-add_library(${PROJECT_NAME}
+add_executable(${PROJECT_NAME}
   ${CALCIUM_TESTS_SOURCE_FILES}
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE Calcium)
