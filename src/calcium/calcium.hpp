@@ -1,3 +1,4 @@
 #pragma once
 
-#include "calcium/calcium/window.hpp"
+#include "calcium/opengl/opengl_instance.hpp"
+#include "calcium/vulkan/vulkan_instance.hpp"

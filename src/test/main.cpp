@@ -1,9 +1,11 @@
 #include <calcium/calcium.hpp>
 
 int main() {
-  Calcium::Window window;
+  Calcium::VulkanInstance instance;
 
-  while (window.IsOpen()) {
-    Calcium::Window::PollEvents();
+  auto window = instance.CreateWindow();
+
+  while (window->IsOpen()) {
+    window->PollEvents();
   }
 }

@@ -4,16 +4,14 @@ struct GLFWwindow;
 
 namespace Calcium {
 
-class Window {
+class OpenGlWindow {
 public:
-  Window();
-  ~Window();
+  OpenGlWindow();
+  ~OpenGlWindow();
 
 public:
   bool IsOpen() const;
-
-public:
-  static void PollEvents();
+  void PollEvents() const;
 
 private:
   GLFWwindow* glfw_window;
