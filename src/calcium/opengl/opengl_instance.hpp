@@ -1,12 +1,17 @@
 #pragma once
 
-#include "calcium/opengl/opengl_window.hpp"
+#include "calcium/common/resource_container.hpp"
 
 namespace Calcium {
+
+class OpenGlWindow;
 
 class OpenGlInstance {
 public:
   OpenGlWindow* CreateWindow();
+
+private:
+  ResourceContainer<OpenGlWindow> windows;
 };
 
 }
