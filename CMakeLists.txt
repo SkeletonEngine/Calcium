@@ -97,6 +97,6 @@ endif()
 
 # Submodules
 add_subdirectory(src/depend/glfw)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
 
 add_subdirectory(src/test)

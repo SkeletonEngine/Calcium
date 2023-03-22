@@ -27,5 +27,34 @@ GLFWwindow* CreateGlfwWindow(const WindowCreateInfo& window_info, const char* de
   return glfwCreateWindow(window_info.width, window_info.height, window_info.title.empty() ? default_title : window_info.title.c_str(), nullptr, nullptr);
 }
 
+static GLFWmonitor* ChooseMonitorIfExists(int monitor) {
+  int monitor_count;
+  GLFWmonitor** monitors = glfwGetMonitors(&monitor_count);
+  if (monitor < monitor_count) {
+    return monitors[monitor];
+  }
+  else {
+    return monitors[0];
+  }
+}
+
+void PositionGlfwWindow(GLFWwindow* glfw_window, int x, int y, int monitor, bool relative_to_center) {
+  GLFWmonitor* chosen_monitor = ChooseMonitorIfExists(monitor);
+
+  const GLFWvidmode* mode = glfwGetVideoMode(chosen_monitor);
+  if (!mode) return;
+
+  int monitor_x, monitor_y;
+  glfwGetMonitorPos(chosen_monitor, &monitor_x, &monitor_y);
+
+  int window_width, window_height;
+  glfwGetWindowSize(glfw_window, &window_width, &window_height);
+
+  int window_x = relative_to_center ? (monitor_x + (mode->width - window_width) / 2) + x : monitor_x + x;
+  int window_y = relative_to_center ? (monitor_y + (mode->height - window_height) / 2) + y : monitor_y + y;
+
+  glfwSetWindowPos(glfw_window, window_x, window_y);
+}
+
 }
 }
