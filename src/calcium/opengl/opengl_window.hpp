@@ -1,12 +1,14 @@
 #pragma once
 
+#include "calcium/common/window.hpp"
+
 struct GLFWwindow;
 
 namespace Calcium {
 
 class OpenGlWindow {
 public:
-  OpenGlWindow();
+  OpenGlWindow(const WindowCreateInfo& window_info);
   ~OpenGlWindow();
 
 public:

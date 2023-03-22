@@ -2,15 +2,19 @@
 
 #include <GLFW/glfw3.h>
 
+#include "calcium/glfw/glfw_window.hpp"
+
 namespace Calcium {
 
-VulkanWindow::VulkanWindow() {
-  glfwInit();
-  glfw_window = glfwCreateWindow(1280, 720, "Hello", nullptr, nullptr);
+VulkanWindow::VulkanWindow(const WindowCreateInfo& window_info) {
+  GlfwWindow::OnGlfwWindowCreate();
+  glfw_window = GlfwWindow::CreateGlfwWindow(window_info, "Calcium [Vulkan]");
 }
 
 VulkanWindow::~VulkanWindow() {
   glfwDestroyWindow(glfw_window);
+
+  GlfwWindow::OnGlfwWindowDestroy();
 }
 
 bool VulkanWindow::IsOpen() const {

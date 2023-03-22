@@ -4,8 +4,4 @@
 
 namespace Calcium {
 
-VulkanWindow* VulkanInstance::CreateWindow() {
-  return windows.Create();
-}
-
 }

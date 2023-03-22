@@ -1,6 +1,7 @@
 #pragma once
 
 #include "calcium/common/resource_container.hpp"
+#include "calcium/common/window.hpp"
 
 namespace Calcium {
 
@@ -8,10 +9,11 @@ class DirectX11Window;
 
 class DirectX11Instance {
 public:
-  DirectX11Window* CreateWindow();
+  inline DirectX11Window* CreateWindow(const WindowCreateInfo& window_info) { return windows.Create(window_info); }
+  inline void DestroyWindow(DirectX11Window* window)                        { windows.Remove(window);             };
 
 private:
-  ResourceContainer<DirectX11Window> windows;
+  ResourceContainer<DirectX11Window, WindowCreateInfo> windows;
 };
 
 }

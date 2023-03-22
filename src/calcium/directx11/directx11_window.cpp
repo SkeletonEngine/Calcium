@@ -2,7 +2,7 @@
 
 namespace Calcium {
 
-DirectX11Window::DirectX11Window() {
+DirectX11Window::DirectX11Window(const WindowCreateInfo& window_info) {
 }
 
 DirectX11Window::~DirectX11Window() {

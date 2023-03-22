@@ -4,7 +4,7 @@
 
 namespace Calcium {
 
-template <class T> class ResourceContainer {
+template <typename T, typename TCreateInfo> class ResourceContainer {
 public:
   ~ResourceContainer() {
     for (auto& e : set) {
@@ -12,8 +12,8 @@ public:
     }
   }
 
-  inline T* Create() {
-    T* t = new T();
+  inline T* Create(const TCreateInfo& create_info) {
+    T* t = new T(create_info);
     set.emplace(t);
     return t;
   }

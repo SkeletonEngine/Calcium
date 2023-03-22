@@ -4,8 +4,4 @@
 
 namespace Calcium {
 
-DirectX11Window* DirectX11Instance::CreateWindow() {
-  return windows.Create();
-}
-
 }

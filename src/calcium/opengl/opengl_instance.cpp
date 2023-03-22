@@ -4,8 +4,4 @@
 
 namespace Calcium {
 
-OpenGlWindow* OpenGlInstance::CreateWindow() {
-  return windows.Create();
-}
-
 }

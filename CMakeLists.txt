@@ -30,8 +30,16 @@ source_group("src/calcium" FILES ${CALCIUM_SOURCE_FILES})
 
 set(CALCIUM_COMMON_SOURCE_FILES
   src/calcium/common/resource_container.hpp
+  src/calcium/common/window.hpp
 )
 source_group("src/calcium/common" FILES ${CALCIUM_COMMON_SOURCE_FILES})
+
+if (CALCIUM_BACKEND_OPENGL OR CALCIUM_BACKEND_VULKAN)
+  set(CALCIUM_GLFW_SOURCE_FILES
+    src/calcium/glfw/glfw_window.hpp src/calcium/glfw/glfw_window.cpp
+  )
+  source_group("src/calcium/glfw" FILES ${CALCIUM_GLFW_SOURCE_FILES})
+endif()
 
 if (CALCIUM_BACKEND_OPENGL)
   set(CALCIUM_OPENGL_SOURCE_FILES
@@ -60,6 +68,7 @@ endif()
 # Target
 add_library(${PROJECT_NAME}
   ${CALCIUM_SOURCE_FILES}
+  ${CALCIUM_GLFW_SOURCE_FILES}
   ${CALCIUM_COMMON_SOURCE_FILES}
   ${CALCIUM_OPENGL_SOURCE_FILES}
   ${CALCIUM_VULKAN_SOURCE_FILES}

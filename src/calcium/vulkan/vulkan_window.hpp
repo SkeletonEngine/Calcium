@@ -1,12 +1,14 @@
 #pragma once
 
+#include "calcium/common/window.hpp"
+
 struct GLFWwindow;
 
 namespace Calcium {
 
 class VulkanWindow {
 public:
-  VulkanWindow();
+  VulkanWindow(const WindowCreateInfo& window_info);
   ~VulkanWindow();
 
 public:
