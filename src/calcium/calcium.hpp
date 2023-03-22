@@ -9,3 +9,8 @@
   #include "calcium/vulkan/vulkan_instance.hpp"
   #include "calcium/vulkan/vulkan_window.hpp"
 #endif
+
+#ifdef CALCIUM_BACKEND_DIRECTX11
+  #include "calcium/directx11/directx11_instance.hpp"
+  #include "calcium/directx11/directx11_window.hpp"
+#endif
