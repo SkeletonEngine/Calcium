@@ -9,4 +9,5 @@ source_group("src" FILES ${CALCIUM_TESTS_SOURCE_FILES})
 add_executable(${PROJECT_NAME}
   ${CALCIUM_TESTS_SOURCE_FILES}
 )
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME} PRIVATE Calcium)

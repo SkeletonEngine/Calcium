@@ -75,7 +75,7 @@ add_library(${PROJECT_NAME}
   ${CALCIUM_DIRECTX11_SOURCE_FILES}
 )
 target_include_directories(${PROJECT_NAME} PUBLIC src)
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 # Platform and backend defines
 if (CALCIUM_PLATFORM_LINUX)
