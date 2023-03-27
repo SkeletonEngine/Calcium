@@ -9,8 +9,12 @@ class VulkanWindow;
 
 class VulkanInstance {
 public:
-  inline VulkanWindow* CreateWindow(const WindowCreateInfo& window_info) { return windows.Create(window_info); }
-  inline void DestroyWindow(VulkanWindow* window)                        { windows.Remove(window);             };
+  VulkanWindow* CreateWindow(const WindowCreateInfo& window_info);
+  void DestroyWindow(VulkanWindow* window);
+
+public:
+  void BeginFrame();
+  void EndFrame();
 
 private:
   ResourceContainer<VulkanWindow, WindowCreateInfo> windows;

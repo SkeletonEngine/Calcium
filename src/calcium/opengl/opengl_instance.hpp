@@ -9,8 +9,12 @@ class OpenGlWindow;
 
 class OpenGlInstance {
 public:
-  inline OpenGlWindow* CreateWindow(const WindowCreateInfo& window_info) { return windows.Create(window_info); }
-  inline void DestroyWindow(OpenGlWindow* window)                        { windows.Remove(window);             };
+  OpenGlWindow* CreateWindow(const WindowCreateInfo& window_info);
+  void DestroyWindow(OpenGlWindow* window);
+
+public:
+  void BeginFrame();
+  void EndFrame();
 
 private:
   ResourceContainer<OpenGlWindow, WindowCreateInfo> windows;
