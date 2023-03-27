@@ -1,3 +1,6 @@
 [submodule "src/depend/glfw"]
 	path = src/depend/glfw
 	url = https://github.com/glfw/glfw
+[submodule "src/depend/volk"]
+	path = src/depend/volk
+	url = https://github.com/zeux/volk
