@@ -29,6 +29,10 @@ set(CALCIUM_SOURCE_FILES
 source_group("src/calcium" FILES ${CALCIUM_SOURCE_FILES})
 
 set(CALCIUM_COMMON_SOURCE_FILES
+  src/calcium/common/assert.hpp
+  src/calcium/common/logger.hpp src/calcium/common/logger.cpp
+  src/calcium/common/logger_level.hpp
+  src/calcium/common/platform.hpp
   src/calcium/common/resource_container.hpp
   src/calcium/common/window.hpp
 )
@@ -51,6 +55,7 @@ endif()
 
 if (CALCIUM_BACKEND_VULKAN)
   set(CALCIUM_VULKAN_SOURCE_FILES
+    src/calcium/vulkan/vulkan_assert.hpp src/calcium/vulkan/vulkan_assert.cpp
     src/calcium/vulkan/vulkan_instance.hpp src/calcium/vulkan/vulkan_instance.cpp
     src/calcium/vulkan/vulkan_window.hpp src/calcium/vulkan/vulkan_window.cpp
   )
@@ -77,14 +82,10 @@ add_library(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PUBLIC src)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
-# Platform and backend defines
-if (CALCIUM_PLATFORM_LINUX)
-  target_compile_definitions(${PROJECT_NAME} PUBLIC "CALCIUM_PLATFORM_LINUX")
-elseif (CALCIUM_PLATFORM_MACOS)
-  target_compile_definitions(${PROJECT_NAME} PUBLIC "CALCIUM_PLATFORM_MACOS")
-elseif (CALCIUM_PLATFORM_WINDOWS)
-  target_compile_definitions(${PROJECT_NAME} PUBLIC "CALCIUM_PLATFORM_WINDOWS")
-endif()
+target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:Debug>:CALCIUM_BUILD_DEBUG>>)
+target_compile_definitions(${PROJECT_NAME} PUBLIC $<$<CONFIG:Release>:CALCIUM_BUILD_RELEASE>>)
+
+# Backend defines
 if (CALCIUM_BACKEND_OPENGL)
   target_compile_definitions(${PROJECT_NAME} PUBLIC "CALCIUM_BACKEND_OPENGL")
 endif()
@@ -100,5 +101,7 @@ endif()
 # Submodules
 add_subdirectory(src/depend/glfw)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
+add_subdirectory(src/depend/spdlog)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
 
 add_subdirectory(src/test)

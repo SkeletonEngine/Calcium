@@ -4,3 +4,6 @@
 [submodule "src/depend/volk"]
 	path = src/depend/volk
 	url = https://github.com/zeux/volk
+[submodule "src/depend/spdlog"]
+	path = src/depend/spdlog
+	url = https://github.com/gabime/spdlog

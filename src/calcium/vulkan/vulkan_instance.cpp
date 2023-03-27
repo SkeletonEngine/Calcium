@@ -10,11 +10,13 @@ namespace Calcium {
 static int num_instances = 0;
 
 VulkanInstance::VulkanInstance() {
+  /* Initialise volk */
   if (num_instances == 0) {
     volkInitialize();
   }
   ++num_instances;
 
+  /* Create VkInstance */
   VkApplicationInfo app_info { };
   app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   app_info.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -27,8 +29,7 @@ VulkanInstance::VulkanInstance() {
   create_info.pApplicationInfo = &app_info;
 
   uint32_t glfw_extension_count = 0;
-  const char** glfw_extensions;
-  glfw_extensions = glfwGetRequiredInstanceExtensions(&glfw_extension_count);
+  const char** glfw_extensions = glfwGetRequiredInstanceExtensions(&glfw_extension_count);
 
   create_info.enabledExtensionCount = glfw_extension_count;
   create_info.ppEnabledExtensionNames = glfw_extensions;
