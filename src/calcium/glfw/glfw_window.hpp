@@ -5,14 +5,27 @@
 struct GLFWwindow;
 
 namespace Calcium {
-namespace GlfwWindow {
 
-void OnGlfwWindowCreate();
-void OnGlfwWindowDestroy();
+class GlfwWindow {
+public:
+  GlfwWindow();
+  virtual ~GlfwWindow();
 
-GLFWwindow* CreateGlfwWindow(const WindowCreateInfo& window_info, const char* default_title);
+protected:
+  GLFWwindow* CreateGlfwWindow(const WindowCreateInfo& window_info, const char* default_title);
 
-void PositionGlfwWindow(GLFWwindow* glfw_window, int x, int y, int monitor, bool relative_to_center);
+public:
+  void SetPosition(int x, int y, int monitor = 0, bool relative_to_center = false);
+  void Center(int monitor = 0);
 
-}
+public:
+  bool IsOpen() const;
+
+public:
+  static void PollEvents();
+
+protected:
+  GLFWwindow* glfw_window;
+};
+
 }

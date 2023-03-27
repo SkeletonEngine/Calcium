@@ -1,17 +1,12 @@
 #pragma once
 
-#include "calcium/common/window.hpp"
+#include "calcium/glfw/glfw_window.hpp"
 
 namespace Calcium {
 
-class DirectX11Window {
+class DirectX11Window : public GlfwWindow {
 public:
   DirectX11Window(const WindowCreateInfo& window_info);
-  ~DirectX11Window();
-
-public:
-  bool IsOpen() const;
-  void PollEvents() const;
 };
 
 }

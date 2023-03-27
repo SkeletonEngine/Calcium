@@ -3,11 +3,10 @@
 #include <GLFW/glfw3.h>
 
 namespace Calcium {
-namespace GlfwWindow {
 
 static int num_open_windows = 0;
 
-void OnGlfwWindowCreate() {
+GlfwWindow::GlfwWindow() {
   if (num_open_windows == 0) {
     glfwInit();
   }
@@ -15,7 +14,7 @@ void OnGlfwWindowCreate() {
   ++num_open_windows;
 }
 
-void OnGlfwWindowDestroy() {
+GlfwWindow::~GlfwWindow() {
   --num_open_windows;
 
   if (num_open_windows == 0) {
@@ -23,7 +22,7 @@ void OnGlfwWindowDestroy() {
   }
 }
 
-GLFWwindow* CreateGlfwWindow(const WindowCreateInfo& window_info, const char* default_title) {
+GLFWwindow* GlfwWindow::CreateGlfwWindow(const WindowCreateInfo& window_info, const char* default_title) {
   return glfwCreateWindow(window_info.width, window_info.height, window_info.title.empty() ? default_title : window_info.title.c_str(), nullptr, nullptr);
 }
 
@@ -38,7 +37,7 @@ static GLFWmonitor* ChooseMonitorIfExists(int monitor) {
   }
 }
 
-void PositionGlfwWindow(GLFWwindow* glfw_window, int x, int y, int monitor, bool relative_to_center) {
+void GlfwWindow::SetPosition(int x, int y, int monitor, bool relative_to_center) {
   GLFWmonitor* chosen_monitor = ChooseMonitorIfExists(monitor);
 
   const GLFWvidmode* mode = glfwGetVideoMode(chosen_monitor);
@@ -56,5 +55,16 @@ void PositionGlfwWindow(GLFWwindow* glfw_window, int x, int y, int monitor, bool
   glfwSetWindowPos(glfw_window, window_x, window_y);
 }
 
+void GlfwWindow::Center(int monitor) {
+  SetPosition(0, 0, monitor, true);
 }
+
+bool GlfwWindow::IsOpen() const {
+  return !glfwWindowShouldClose(glfw_window);
+}
+
+void GlfwWindow::PollEvents() {
+  glfwPollEvents();
+}
+
 }
