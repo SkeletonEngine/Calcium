@@ -9,6 +9,9 @@ class DirectX11Window;
 
 class DirectX11Instance {
 public:
+  DirectX11Instance();
+
+public:
   DirectX11Window* CreateWindow(const WindowCreateInfo& window_info);
   void DestroyWindow(DirectX11Window* window);
 

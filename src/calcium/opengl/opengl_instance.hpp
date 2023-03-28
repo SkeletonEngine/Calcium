@@ -9,6 +9,9 @@ class OpenGlWindow;
 
 class OpenGlInstance {
 public:
+  OpenGlInstance();
+
+public:
   OpenGlWindow* CreateWindow(const WindowCreateInfo& window_info);
   void DestroyWindow(OpenGlWindow* window);
 

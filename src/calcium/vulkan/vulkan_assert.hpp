@@ -4,6 +4,8 @@
 
 #ifdef CALCIUM_BUILD_DEBUG
 
+  #include <volk.h>
+
   namespace Calcium {
     const char* VkResultString(VkResult result);
   }

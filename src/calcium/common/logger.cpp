@@ -9,7 +9,7 @@ namespace Logger {
 
 static std::shared_ptr<spdlog::logger> static_logger;
 
-spdlog::logger* Logger() {
+spdlog::logger* GetLogger() {
   return static_logger.get();
 }
 

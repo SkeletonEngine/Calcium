@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <volk.h>
 
+#include "calcium/vulkan/vulkan_assert.hpp"
 #include "calcium/vulkan/vulkan_window.hpp"
 
 namespace Calcium {
@@ -10,6 +11,8 @@ namespace Calcium {
 static int num_instances = 0;
 
 VulkanInstance::VulkanInstance() {
+  CALCIUM_LOGGER_INIT();
+
   /* Initialise volk */
   if (num_instances == 0) {
     volkInitialize();
@@ -35,7 +38,7 @@ VulkanInstance::VulkanInstance() {
   create_info.ppEnabledExtensionNames = glfw_extensions;
 
   create_info.enabledLayerCount = 0;
-  VkResult result = vkCreateInstance(&create_info, nullptr, &instance);
+  VK_CALL(vkCreateInstance(&create_info, nullptr, &instance));
 }
 
 VulkanInstance::~VulkanInstance() {

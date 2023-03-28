@@ -11,6 +11,12 @@ void LoggerInit(LoggerLevel logger_level);
 void LoggerTerminate();
 void LoggerSetLevel(LoggerLevel level);
 
+#ifdef CALCIUM_BUILD_DEBUG
+  #define CALCIUM_LOGGER_INIT() ::Calcium::Logger::LoggerInit(::Calcium::Logger::LoggerLevel::kInfo)
+#else
+  #define CALCIUM_LOGGER_INIT() ::Calcium::Logger::LoggerInit(::Calcium::Logger::LoggerLevel::kWarn)
+#endif
+
 spdlog::logger* GetLogger();
 
 #define CALCIUM_LOG_TRACE(...) ::Calcium::Logger::GetLogger()->trace(__VA_ARGS__)
