@@ -1,12 +1,18 @@
 #include "calcium/opengl/opengl_instance.hpp"
 
+#include "calcium/common/instance.hpp"
 #include "calcium/common/logger.hpp"
 #include "calcium/opengl/opengl_window.hpp"
 
 namespace Calcium {
 
 OpenGlInstance::OpenGlInstance() {
-  CALCIUM_LOGGER_INIT();
+  Instance::OnInstanceCreate();
+  CALCIUM_LOG_INFO("Creating OpenGlInstance");
+}
+
+OpenGlInstance::~OpenGlInstance() {
+  Instance::OnInstanceDestroy();
 }
 
 OpenGlWindow* OpenGlInstance::CreateWindow(const WindowCreateInfo& window_info) { 

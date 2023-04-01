@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <volk.h>
 
+#include "calcium/common/instance.hpp"
 #include "calcium/vulkan/vulkan_assert.hpp"
 #include "calcium/vulkan/vulkan_window.hpp"
 
@@ -11,7 +12,8 @@ namespace Calcium {
 static int num_instances = 0;
 
 VulkanInstance::VulkanInstance() {
-  CALCIUM_LOGGER_INIT();
+  Instance::OnInstanceCreate();
+  CALCIUM_LOG_INFO("Creating VulkanInstance");
 
   /* Initialise volk */
   if (num_instances == 0) {
@@ -43,6 +45,7 @@ VulkanInstance::VulkanInstance() {
 
 VulkanInstance::~VulkanInstance() {
   --num_instances;
+  Instance::OnInstanceDestroy();
 }
 
 VulkanWindow* VulkanInstance::CreateWindow(const WindowCreateInfo& window_info) {

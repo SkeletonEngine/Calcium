@@ -42,6 +42,7 @@ source_group("src/calcium" FILES ${CALCIUM_SOURCE_FILES})
 
 set(CALCIUM_COMMON_SOURCE_FILES
   src/calcium/common/assert.hpp
+  src/calcium/common/instance.hpp src/calcium/common/instance.cpp
   src/calcium/common/logger.hpp src/calcium/common/logger.cpp
   src/calcium/common/logger_level.hpp
   src/calcium/common/platform.hpp

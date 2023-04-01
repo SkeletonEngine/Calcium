@@ -10,6 +10,7 @@ class OpenGlWindow;
 class OpenGlInstance {
 public:
   OpenGlInstance();
+  ~OpenGlInstance();
 
 public:
   OpenGlWindow* CreateWindow(const WindowCreateInfo& window_info);
