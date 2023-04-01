@@ -23,6 +23,7 @@ public:
   void EndFrame();
 
 private:
+  VkAllocationCallbacks* allocator = nullptr;
   VkInstance instance;
 
 private:

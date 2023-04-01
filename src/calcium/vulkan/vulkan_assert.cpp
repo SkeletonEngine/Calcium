@@ -3,6 +3,7 @@
 #include <volk.h>
 
 namespace Calcium {
+namespace Vulkan {
 
 const char* VkResultString(VkResult result) {
   switch (result) {
@@ -48,4 +49,5 @@ const char* VkResultString(VkResult result) {
   }
 }
 
+}
 }

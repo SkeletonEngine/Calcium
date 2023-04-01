@@ -1,5 +1,7 @@
 #pragma once
 
+#include "calcium/common/logger.hpp"
+
 #ifdef CALCIUM_BUILD_DEBUG
 
   #include "calcium/common/platform.hpp"
@@ -16,7 +18,6 @@
 
   /* Assert/call macros */
   #include <filesystem>
-  #include "calcium/common/logger.hpp"
 
   #define CALCIUM_CONCAT_INTERNAL(x, y) x##y
   #define CALCIUM_CONCAT(x, y) CALCIUM_CONCAT_INTERNAL(x, y)

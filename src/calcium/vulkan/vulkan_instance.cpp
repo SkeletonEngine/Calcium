@@ -1,10 +1,13 @@
 #include "calcium/vulkan/vulkan_instance.hpp"
 
+#include <vector>
+
 #include <GLFW/glfw3.h>
 #include <volk.h>
 
 #include "calcium/common/instance.hpp"
 #include "calcium/vulkan/vulkan_assert.hpp"
+#include "calcium/vulkan/vulkan_instance_extensions.hpp"
 #include "calcium/vulkan/vulkan_window.hpp"
 
 namespace Calcium {
@@ -15,35 +18,38 @@ VulkanInstance::VulkanInstance() {
   Instance::OnInstanceCreate();
   CALCIUM_LOG_INFO("Creating VulkanInstance");
 
-  /* Initialise volk */
-  if (num_instances == 0) {
+  /* Load enough vulkan functions to create an instance */
+  ++num_instances;
+  if (num_instances == 1) {
     volkInitialize();
   }
-  ++num_instances;
 
   /* Create VkInstance */
-  VkApplicationInfo app_info { };
-  app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+  VkApplicationInfo app_info { VK_STRUCTURE_TYPE_APPLICATION_INFO };
   app_info.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
   app_info.pEngineName = "Calcium";
   app_info.engineVersion = VK_MAKE_VERSION(1, 0, 0);
   app_info.apiVersion = VK_API_VERSION_1_0;
 
-  VkInstanceCreateInfo create_info { };
-  create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-  create_info.pApplicationInfo = &app_info;
+  VkInstanceCreateInfo instance_info { VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO };
+  instance_info.pApplicationInfo = &app_info;
+  
+  /* Find required instance extensions */
+  auto required_extensions = Vulkan::GetRequiredInstanceExtensions();
+  instance_info.enabledExtensionCount = (uint32_t)required_extensions.size();
+  instance_info.ppEnabledExtensionNames = required_extensions.data();
 
-  uint32_t glfw_extension_count = 0;
-  const char** glfw_extensions = glfwGetRequiredInstanceExtensions(&glfw_extension_count);
+  instance_info.enabledLayerCount = 0;
+  VK_CALL(vkCreateInstance(&instance_info, allocator, &instance));
 
-  create_info.enabledExtensionCount = glfw_extension_count;
-  create_info.ppEnabledExtensionNames = glfw_extensions;
-
-  create_info.enabledLayerCount = 0;
-  VK_CALL(vkCreateInstance(&create_info, nullptr, &instance));
+  /* Load the rest of the vulkan functions */
+  if (num_instances == 1) {
+    volkLoadInstance(instance);
+  }
 }
 
 VulkanInstance::~VulkanInstance() {
+  vkDestroyInstance(instance, allocator);
   --num_instances;
   Instance::OnInstanceDestroy();
 }

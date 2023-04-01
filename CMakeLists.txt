@@ -70,6 +70,7 @@ if (CALCIUM_BACKEND_VULKAN)
   set(CALCIUM_VULKAN_SOURCE_FILES
     src/calcium/vulkan/vulkan_assert.hpp src/calcium/vulkan/vulkan_assert.cpp
     src/calcium/vulkan/vulkan_instance.hpp src/calcium/vulkan/vulkan_instance.cpp
+    src/calcium/vulkan/vulkan_instance_extensions.hpp src/calcium/vulkan/vulkan_instance_extensions.cpp
     src/calcium/vulkan/vulkan_window.hpp src/calcium/vulkan/vulkan_window.cpp
   )
   source_group("src/calcium/vulkan" FILES ${CALCIUM_VULKAN_SOURCE_FILES})
