@@ -7,6 +7,7 @@
 
 #include "calcium/common/instance.hpp"
 #include "calcium/vulkan/vulkan_assert.hpp"
+#include "calcium/vulkan/vulkan_debug_messenger.hpp"
 #include "calcium/vulkan/vulkan_instance_extensions.hpp"
 #include "calcium/vulkan/vulkan_window.hpp"
 
@@ -39,7 +40,15 @@ VulkanInstance::VulkanInstance() {
   instance_info.enabledExtensionCount = (uint32_t)required_extensions.size();
   instance_info.ppEnabledExtensionNames = required_extensions.data();
 
+  /* Add debug messenger */
+#ifdef CALCIUM_BUILD_DEBUG
+  Vulkan::AddDebugMessenger(instance_info);
+#else
   instance_info.enabledLayerCount = 0;
+  instance_info.pNext = nullptr;
+#endif
+
+  /* Create VkInstance */
   VK_CALL(vkCreateInstance(&instance_info, allocator, &instance));
 
   /* Load the rest of the vulkan functions */
