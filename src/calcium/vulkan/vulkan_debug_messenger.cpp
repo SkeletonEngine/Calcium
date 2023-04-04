@@ -13,11 +13,8 @@ const static std::vector<const char*> kValidationLayers = {
   "VK_LAYER_KHRONOS_validation"
 };
 
-static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
-    VkDebugUtilsMessageSeverityFlagBitsEXT message_severity,
-    VkDebugUtilsMessageTypeFlagsEXT message_type,
-    const VkDebugUtilsMessengerCallbackDataEXT* callback_data,
-    void* user_data) {
+static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message_severity,
+    VkDebugUtilsMessageTypeFlagsEXT, const VkDebugUtilsMessengerCallbackDataEXT* callback_data, void*) {
   
   switch (message_severity) {
     case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT: CALCIUM_LOG_TRACE(callback_data->pMessage); break;
@@ -30,7 +27,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
   return VK_FALSE;
 }
 
-static VkDebugUtilsMessengerCreateInfoEXT CreateDebugMessengerInfo() {
+VkDebugUtilsMessengerCreateInfoEXT CreateDebugMessengerCreateInfo() {
   VkDebugUtilsMessengerCreateInfoEXT messenger_info { };
   messenger_info.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
   messenger_info.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
@@ -42,9 +39,7 @@ static VkDebugUtilsMessengerCreateInfoEXT CreateDebugMessengerInfo() {
   return messenger_info;
 }
 
-const static VkDebugUtilsMessengerCreateInfoEXT kDebugMessengerInfo = Vulkan::CreateDebugMessengerInfo();
-
-static bool AreAllValidationLayersSupported() {
+bool AreAllValidationLayersSupported() {
   /* List all available validation layers */
   uint32_t layer_count;
   vkEnumerateInstanceLayerProperties(&layer_count, nullptr);
@@ -70,10 +65,9 @@ static bool AreAllValidationLayersSupported() {
   return true;
 }
 
-void AddDebugMessenger(VkInstanceCreateInfo& instance_info) {
+void SetValidationLayers(VkInstanceCreateInfo& instance_info) {
   instance_info.enabledLayerCount = (uint32_t)kValidationLayers.size();
   instance_info.ppEnabledLayerNames = kValidationLayers.data();
-  instance_info.pNext = &kDebugMessengerInfo;
 }
 
 }

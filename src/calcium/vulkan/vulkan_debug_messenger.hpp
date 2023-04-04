@@ -5,7 +5,9 @@
 namespace Calcium {
 namespace Vulkan {
 
-void AddDebugMessenger(VkInstanceCreateInfo& instance_info);
+VkDebugUtilsMessengerCreateInfoEXT CreateDebugMessengerCreateInfo();
+bool AreAllValidationLayersSupported();
+void SetValidationLayers(VkInstanceCreateInfo& instance_info);
 
 }
 }

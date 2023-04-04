@@ -40,12 +40,12 @@ VulkanInstance::VulkanInstance() {
   instance_info.enabledExtensionCount = (uint32_t)required_extensions.size();
   instance_info.ppEnabledExtensionNames = required_extensions.data();
 
-  /* Add debug messenger */
+  /* Add validation layers */
 #ifdef CALCIUM_BUILD_DEBUG
-  Vulkan::AddDebugMessenger(instance_info);
-#else
-  instance_info.enabledLayerCount = 0;
-  instance_info.pNext = nullptr;
+  CALCIUM_ASSERT(Vulkan::AreAllValidationLayersSupported());
+  VkDebugUtilsMessengerCreateInfoEXT debug_messenger_info = Vulkan::CreateDebugMessengerCreateInfo();
+  Vulkan::SetValidationLayers(instance_info);
+  instance_info.pNext = &debug_messenger_info;
 #endif
 
   /* Create VkInstance */
@@ -55,6 +55,7 @@ VulkanInstance::VulkanInstance() {
   if (num_instances == 1) {
     volkLoadInstance(instance);
   }
+
 }
 
 VulkanInstance::~VulkanInstance() {
